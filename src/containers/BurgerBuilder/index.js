@@ -14,12 +14,27 @@ class BurgerBuilder extends Component {
         Bacon:0 
       }
     }
+
+    handleAddIngredient  = (type) =>{
+
+        let ingredients = Object.assign(this.state.ingredients);
+
+        ingredients[type]=ingredients[type] + 1;
+
+        this.setState({
+            ingredients:ingredients
+        });
+
+        console.log('new state:',ingredients)
+    }
     
     render(){
         return (
             <Aux>
                 <Burger ingredients={this.state.ingredients} />
-                <BuildControls ingredients={this.state.ingredients} />
+                <BuildControls 
+                    ingredients={this.state.ingredients}
+                    addIngredient={this.handleAddIngredient} />
             </Aux>
         )
     }

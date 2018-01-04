@@ -13,7 +13,7 @@ class Burger extends Component {
 
         let ingredients = Object.keys(propsIng).map(key=>{
             return [...Array(propsIng[key])].map((_,i) =>{
-                return <BurgerIngredient type={key} key={i} /> 
+                return <BurgerIngredient type={key} key={key+i} /> 
             })
         }).reduce((curr,next)=>{
             return curr.concat(next);
