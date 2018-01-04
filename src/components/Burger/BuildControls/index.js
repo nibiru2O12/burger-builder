@@ -20,7 +20,8 @@ class BuildControls extends Component {
                                     label={ctr} 
                                     type={ctr}
                                     key={i} 
-                                    addIngredient={this.props.addIngredient}/>
+                                    addIngredient={this.props.addIngredient}
+                                    decIngredient={this.props.decIngredient}/>
                     })
                 }
             </div>

@@ -15,11 +15,29 @@ class BurgerBuilder extends Component {
       }
     }
 
-    handleAddIngredient  = (type) =>{
+    handleIncrementIngredient  = (type) =>{
 
         let ingredients = Object.assign(this.state.ingredients);
 
+
         ingredients[type]=ingredients[type] + 1;
+
+        this.setState({
+            ingredients:ingredients
+        });
+
+        console.log('new state:',ingredients)
+    }
+
+    handleDecrementIngredient  = (type) =>{
+
+        let ingredients = Object.assign(this.state.ingredients);
+
+        if(ingredients[type]===0){
+            return false
+        }
+        
+        ingredients[type]=ingredients[type] - 1;
 
         this.setState({
             ingredients:ingredients
@@ -34,7 +52,8 @@ class BurgerBuilder extends Component {
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls 
                     ingredients={this.state.ingredients}
-                    addIngredient={this.handleAddIngredient} />
+                    addIngredient={this.handleIncrementIngredient}
+                    decIngredient={this.handleDecrementIngredient} />
             </Aux>
         )
     }
