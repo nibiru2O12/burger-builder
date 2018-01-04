@@ -24,11 +24,17 @@ class BurgerIngredients extends Component {
             case ('bread-bottom'):
                 ingredients = <div className={classes.BreadBottom}></div>
                 break;
-            case ('meat'):
+            case ('Meat'):
                 ingredients = <div className={classes.Meat}></div>
                 break;
-            case ('salad'):
+            case ('Salad'):
                 ingredients = <div className={classes.Salad}></div>
+                break;
+            case ('Bacon'):
+                ingredients = <div className={classes.Bacon}></div>
+                break;
+            case ('Cheese'):
+                ingredients = <div className={classes.Cheese}></div>
                 break;
             default:
             console.log(this.props.type);
