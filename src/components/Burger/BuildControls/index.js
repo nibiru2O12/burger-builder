@@ -14,6 +14,7 @@ class BuildControls extends Component {
 
         return (
             <div className={classes.BuildControls}>
+                Total Price : {this.props.price}
                 {
                     controls.map((ctr,i)=>{
                         return <BuildControl 
