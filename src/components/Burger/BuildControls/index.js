@@ -5,11 +5,20 @@ import BuildControl from './BuildControl';
 
 
 class BuildControls extends Component {
+   
     render() {
+
+        const controls = Object.keys(this.props.ingredients).map((key)=>{
+            return key;
+        });
+
         return (
             <div className={classes.BuildControls}>
-                Controllers
-                <BuildControl label="Meat"/>
+                {
+                    controls.map((ctr,i)=>{
+                        return <BuildControl label={ctr} key={i} />
+                    })
+                }
             </div>
         );
     }
