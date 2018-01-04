@@ -15,7 +15,13 @@ class Burger extends Component {
             return [...Array(propsIng[key])].map((_,i) =>{
                 return <BurgerIngredient type={key} key={i} /> 
             })
-        });
+        }).reduce((curr,next)=>{
+            return curr.concat(next);
+        },[]);
+
+        if(ingredients.length===0){
+            ingredients='Please select ingredients'
+        }
 
         console.log(ingredients)
 
