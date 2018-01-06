@@ -1,16 +1,21 @@
 import React from 'react';
 import classes from './Modal.css';
 
-const Modal = (props) => {
+import Aux from '../../hoc/Aux';
+import Backdrop from '../Backdrop/Backdrop';
 
-    const modal = props.show ? (
+const Modal = (props) => {
+    const modal = !props.show ? (
         <div className={classes.Modal}>
             {props.children}
         </div>
     ): null
 
     return (
-        modal
+        <Aux>
+            <Backdrop />
+            {modal}
+        </Aux>
     );
 }
 export default Modal;
