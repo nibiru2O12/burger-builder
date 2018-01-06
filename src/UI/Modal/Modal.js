@@ -7,10 +7,15 @@ import Backdrop from '../Backdrop/Backdrop';
 class Modal extends Component{
 
     render(){
-        const modal = this.props.show ? (
+        const {show} = this.props;
+        return (
             <Aux>
-                <Backdrop onClick={this.props.close} />
-                <div className={classes.Modal}>
+                <Backdrop onClick={this.props.close} show={show} />
+                <div className={classes.Modal} 
+                    style={{
+                        transform : show ? "translateY(0)" : "translateY(-100vh)",
+                        opacity :  show ? "1" : "0",
+                    }}>
                     <span 
                         className={classes.Close}
                         onClick={this.props.close}>x</span>
@@ -19,9 +24,7 @@ class Modal extends Component{
                 
                 </div>
             </Aux>
-        ): null
-    
-        return modal;    
+        );    
     }
 }
 
