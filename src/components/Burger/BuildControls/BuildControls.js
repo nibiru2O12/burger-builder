@@ -7,23 +7,21 @@ class BuildControls extends Component {
    
     render() {
 
-        const controls = Object.keys(this.props.ingredients).map((key)=>{
-            return key;
+        const {ingredients} = this.props;
+        const controls = Object.keys(ingredients).map((key)=>{
+            return [key,ingredients[key]];
+        }).map((ing,i)=>{
+            return (<BuildControl 
+                        label={ing[0]} type={ing[0]} key={i} 
+                        addIngredient={this.props.addIngredient}
+                        decIngredient={this.props.decIngredient}
+                        disabled={ ing[1] > 0 ? false : true }/>)
         });
 
         return (
             <div className={classes.BuildControls}>
                 Total Price : {this.props.price}
-                {
-                    controls.map((ctr,i)=>{
-                        return <BuildControl 
-                                    label={ctr} 
-                                    type={ctr}
-                                    key={i} 
-                                    addIngredient={this.props.addIngredient}
-                                    decIngredient={this.props.decIngredient}/>
-                    })
-                }
+                {controls}
                 <button 
                     className={classes.OrderButton}
                     disabled={!this.props.purchasable}>

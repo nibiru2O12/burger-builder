@@ -3,16 +3,28 @@ import React, { Component } from 'react';
 import classes from './build-control.css';
 
 class BuildControl extends Component{
+    
     render(){
+
+        const {label,type,disabled,addIngredient,decIngredient} = this.props;
+
         return  (
+
             <div className={classes.BuildControl} >
-                <label>{this.props.label}</label>
+        
+                <label>{label}</label>
+                
                 <button className={classes.Less}
-                        onClick={()=> this.props.decIngredient(this.props.type)}>Less</button>
+                        onClick={()=> decIngredient(type)}
+                        disabled={disabled} >Less</button>
+
                 <button className={classes.More} 
-                        onClick={()=>this.props.addIngredient(this.props.type)}>More</button>
-            </div>
+                        onClick={()=> addIngredient(type)}>
+                        More
+                </button>
             
+            </div>
+        
         )
     }
 }
