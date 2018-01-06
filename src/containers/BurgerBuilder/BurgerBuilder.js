@@ -24,6 +24,15 @@ class BurgerBuilder extends Component {
       checkout:false
     }
 
+    handleProceedOrder = () => {
+        alert('you have confirmed your order');
+    }
+
+    handleCancelOrder = () => {
+        alert('you have cancelled your order');
+        this.handleCloseModal();
+    }
+
     handleCheckout = () => {
         this.setState({checkout:true});
     }
@@ -85,7 +94,9 @@ class BurgerBuilder extends Component {
                 <Modal show={this.state.checkout} close={this.handleCloseModal}>
                     <OrderSummary 
                         ingredients={this.state.ingredients}
-                        price = {this.state.totalPrice} />
+                        price = {this.state.totalPrice}
+                        proceedOrder={this.handleProceedOrder}
+                        cancelOrder={this.handleCancelOrder} />
                 </Modal>
 
                 <Burger ingredients={this.state.ingredients} />

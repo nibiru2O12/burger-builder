@@ -21,7 +21,7 @@ class Modal extends Component{
                         onClick={this.props.close}>x</span>
                         
                     {this.props.children}
-                
+
                 </div>
             </Aux>
         );    
