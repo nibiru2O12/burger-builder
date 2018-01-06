@@ -9,13 +9,13 @@ class BuildControls extends Component {
 
         const {ingredients} = this.props;
         const controls = Object.keys(ingredients).map((key)=>{
-            return [key,ingredients[key]];
+            return {type:key,value:ingredients[key]};
         }).map((ing,i)=>{
             return (<BuildControl 
-                        label={ing[0]} type={ing[0]} key={i} 
+                        ingredient={ing} key={i} 
                         addIngredient={this.props.addIngredient}
                         decIngredient={this.props.decIngredient}
-                        disabled={ ing[1] > 0 ? false : true }/>)
+                        disabled={ ing['value'] > 0 ? false : true }/>)
         });
 
         return (
