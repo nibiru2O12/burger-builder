@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import classes from './build-control.css';
 
 class BuildControl extends Component{
+
+    static propTypes = {
+        ingredient : PropTypes.object,
+        addIngredient : PropTypes.func,
+        decIngredient : PropTypes.func
+    }
     
     render(){
 
@@ -14,7 +21,7 @@ class BuildControl extends Component{
 
             <div className={classes.BuildControl} >
         
-                <label> {ingredient['type']}{value} </label>
+                <label className={classes.Label}> {ingredient['type']}{value} </label>
                 
                 <button className={classes.Less}
                         onClick={()=> decIngredient(ingredient['type'])}
@@ -30,5 +37,6 @@ class BuildControl extends Component{
         )
     }
 }
+
 
 export default BuildControl;
