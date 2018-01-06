@@ -12,6 +12,21 @@
     transition: all 0.3s ease-out;
 }
 
+.Modal .Close {
+    cursor: pointer;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    padding: 2px;
+    border: 1px solid white;
+    color: white;
+    background-color: firebrick;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    float: right;
+}
+
 @media (min-width: 600px) {
     .Modal {
         width: 500px;

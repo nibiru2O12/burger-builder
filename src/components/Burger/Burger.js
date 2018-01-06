@@ -23,8 +23,6 @@ class Burger extends Component {
             ingredients='Please select ingredients'
         }
 
-        console.log(ingredients)
-
         return (
             <div className={classes.Burger}>
                 <BurgerIngredient type='bread-top' />

@@ -24,7 +24,8 @@ class BuildControls extends Component {
                 {controls}
                 <button 
                     className={classes.OrderButton}
-                    disabled={!this.props.purchasable}>
+                    disabled={!this.props.purchasable}
+                    onClick={this.props.checkout}>
                     ORDER NOW
                 </button>
             </div>
