@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import classes from './build-controls.css'
-import BuildControl from './BuildControl';
+import BuildControl from './BuildControl/BuildControl';
 
 
 class BuildControls extends Component {

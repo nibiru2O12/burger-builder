@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 import Aux from '../../hoc/Aux';
-import Burger from '../../components/Burger'
-import BuildControls from '../../components/Burger/BuildControls';
+import Burger from '../../components/Burger/Burger'
+import BuildControls from '../../components/Burger/BuildControls//BuildControls';
 
 const INGREDIENTS_PRICE={
     Meat:2,Cheese:2,Salad:3,Bacon:5
@@ -31,8 +31,6 @@ class BurgerBuilder extends Component {
                 totalPrice: prev.totalPrice + INGREDIENTS_PRICE[type]
             }
         });
-
-
     }
 
     handleDecrementIngredient  = (type) =>{

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import classes from './Burger.css';
 import Aux from '../../hoc/Aux';
-import BurgerIngredient from './BurgerIngredient';
+import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 class Burger extends Component {
 
