@@ -15,7 +15,7 @@ class BuildControl extends Component{
 
         const {ingredient,disabled,addIngredient,decIngredient} = this.props;
         let value = ingredient['value'];
-        value = value === 0 ? null : `(${value}x)`;
+        value = value === 0 ? null : `(x${value})`;
 
         return  (
 

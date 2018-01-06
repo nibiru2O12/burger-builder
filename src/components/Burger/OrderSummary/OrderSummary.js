@@ -9,7 +9,7 @@ const OrderSummary = (props) => {
                             let ing = (
                                 orderCount === 0 ? null 
                                 : (<li key={key}> 
-                                        {key} {`(${orderCount}x)`} 
+                                        {key} {`(x${orderCount})`} 
                                     </li>)
                             );
                             return ing;
@@ -22,6 +22,7 @@ const OrderSummary = (props) => {
             <ul>
                 {ingredients}
             </ul>
+            <p><b><span>Total Price : </span> {props.price} </b></p>
             <p>Do you cofirm your order?</p>
         </Aux>
     );

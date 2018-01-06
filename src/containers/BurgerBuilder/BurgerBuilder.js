@@ -83,8 +83,11 @@ class BurgerBuilder extends Component {
             
             <Aux>
                 <Modal show={this.state.checkout} close={this.handleCloseModal}>
-                    <OrderSummary ingredients={this.state.ingredients}/>
+                    <OrderSummary 
+                        ingredients={this.state.ingredients}
+                        price = {this.state.totalPrice} />
                 </Modal>
+
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls 
                     price={this.state.totalPrice}
@@ -92,8 +95,7 @@ class BurgerBuilder extends Component {
                     addIngredient={this.handleIncrementIngredient}
                     decIngredient={this.handleDecrementIngredient}
                     purchasable={this.state.purchasable}
-                    checkout={this.handleCheckout}
-                />{/* end buildControls */}
+                    checkout={this.handleCheckout} />
 
             </Aux>
         )
