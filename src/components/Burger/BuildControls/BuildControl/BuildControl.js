@@ -12,6 +12,7 @@ class BuildControl extends Component{
                 <button className={classes.More} 
                         onClick={()=>this.props.addIngredient(this.props.type)}>More</button>
             </div>
+            
         )
     }
 }

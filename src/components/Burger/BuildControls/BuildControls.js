@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import classes from './build-controls.css'
 import BuildControl from './BuildControl/BuildControl';
 
-
 class BuildControls extends Component {
    
     render() {
@@ -25,6 +24,11 @@ class BuildControls extends Component {
                                     decIngredient={this.props.decIngredient}/>
                     })
                 }
+                <button 
+                    className={classes.OrderButton}
+                    disabled={!this.props.purchasable}>
+                    ORDER NOW
+                </button>
             </div>
         );
     }
