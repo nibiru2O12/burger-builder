@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Aux from '../../hoc/Aux';
+import Toolbar from '../Navigation/Toolbar/Toolbar';
 import classes from "./Layout.css";
 
 class Layout extends Component {
@@ -9,7 +10,7 @@ class Layout extends Component {
         
         return (
             <Aux>
-                <div>Navigation ..</div>
+                <Toolbar />
                 <main className={classes.content}>
                     {this.props.children}
                 </main>
