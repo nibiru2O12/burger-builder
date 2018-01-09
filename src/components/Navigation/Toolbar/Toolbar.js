@@ -11,7 +11,7 @@ class Toolbar extends Component {
             <header className={classes.Toolbar}>
                 <div>Menu</div>
                 <Logo />
-                <nav>
+                <nav className={classes.DesktopOnly}>
                     <NavigationItems />
                 </nav>
             </header>
