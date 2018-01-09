@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 
 import classes from './Toolbar.css';
 import Logo from '../../Logo/Logo';
+import NavigationItems from '../NavigationItems/NavigationItems';
 
 class Toolbar extends Component {
     render() {
@@ -10,7 +11,9 @@ class Toolbar extends Component {
             <header className={classes.Toolbar}>
                 <div>Menu</div>
                 <Logo />
-                <nav>....</nav>
+                <nav>
+                    <NavigationItems />
+                </nav>
             </header>
         );
     }
