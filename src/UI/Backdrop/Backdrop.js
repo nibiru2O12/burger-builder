@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import classes from './Backdrop.css';
 
-const Backdrop = (props) => {
-    
-    return (
-        props.show ? <div className={classes.Backdrop} onClick={props.onClick}></div> : null
-    );
+class Backdrop extends Component{
+
+    static defaultProps={
+        show:false
+    }
+
+    static propTypes = {
+        show:PropTypes.bool,
+    }
+
+    render(){
+        return (
+            this.props.show ? 
+                <div className={classes.Backdrop} 
+                     onClick={this.props.onClick}></div> : null
+        )
+    }
 }
 
 export default Backdrop;
