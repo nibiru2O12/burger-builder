@@ -6,10 +6,11 @@ import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
 
 class Toolbar extends Component {
+
     render() {
         return (
             <header className={classes.Toolbar}>
-                <div>Menu</div>
+                <div onClick={this.props.toggle}>Menu</div>
                 <Logo />
                 <nav className={classes.DesktopOnly}>
                     <NavigationItems />

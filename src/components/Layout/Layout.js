@@ -6,13 +6,23 @@ import Toolbar from '../Navigation/Toolbar/Toolbar';
 import Sidedrawer from '../Navigation/Sidedrawer/Sidedrawer';
 
 class Layout extends Component {
+
+    state ={
+        sideDrawerIsOpen:false
+    }
+
+    handleSidedrawerToggle = () =>{
+        this.setState(prev=>{
+            return {sideDrawerIsOpen:!prev.sideDrawerIsOpen}
+        });
+    }
+
     render() {
-        console.log('class',classes.content)
-        
         return (
             <Aux>
-                <Toolbar />
-                <Sidedrawer />
+                <Toolbar toggle={this.handleSidedrawerToggle}/>
+                <Sidedrawer toggle={this.handleSidedrawerToggle} 
+                            show={this.state.sideDrawerIsOpen} />
                 <main className={classes.content}>
                     {this.props.children}
                 </main>

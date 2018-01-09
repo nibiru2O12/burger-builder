@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import classes from './Sidedrawer.css';
 import Logo from '../../Logo/Logo';
@@ -7,22 +7,28 @@ import NavigationItems from '../NavigationItems/NavigationItems';
 import Backdrop from '../../../UI/Backdrop/Backdrop';
 import Aux from '../../../hoc/Aux';
 
-const Sidedrawer = (props) => {
+class Sidedrawer extends Component {
+    
+    render() {
 
-    return (
-        <Aux >
-            <Backdrop />
-            <div className={classes.Sidedrawer}>
-            <div className={classes.Logo}>
-                <Logo />
-            </div>
-            <nav>
-                <NavigationItems />
-            </nav>
-            </div>
-        </Aux>
-        
-    );
+        let {show} = this.props;
+        let showClass = show ? classes.Open : classes.Close;
+
+        return (
+            <Aux>
+                <Backdrop show={show} onClick={this.props.toggle} />
+                <div className={[classes.Sidedrawer,showClass].join(' ')}>
+                    <div className={classes.Logo}>
+                        <Logo />
+                    </div>
+                    <nav>
+                        <NavigationItems />
+                    </nav>
+                </div>
+            </Aux>
+            
+        );
+    }
 }
 
 export default Sidedrawer;
