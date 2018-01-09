@@ -10,7 +10,7 @@ class Backdrop extends Component{
     }
 
     static propTypes = {
-        show:PropTypes.bool,
+        show:PropTypes.bool
     }
 
     render(){
