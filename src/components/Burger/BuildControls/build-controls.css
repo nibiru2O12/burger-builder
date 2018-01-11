@@ -6,6 +6,17 @@
     align-items: center;
     box-shadow:  0 2px 1px #ccc;
     margin: auto;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.BuildControls .Ingredients{
+    box-sizing: border-box;
+    margin: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
 }
 
 
@@ -48,4 +59,18 @@
     100% {
         transform: scale(1);
     }
+}
+
+@media(max-width:499px){
+
+    .BuildControls .Ingredients{
+        box-sizing: border-box;
+        margin: 5px 0;
+        display: flex;
+        display: column;
+        flex-wrap: wrap;
+        justify-content: center;
+
+    }
+
 }

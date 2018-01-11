@@ -21,7 +21,9 @@ class BuildControls extends Component {
         return (
             <div className={classes.BuildControls}>
                 Total Price : {this.props.price}
-                {controls}
+                <div className={classes.Ingredients}>
+                    {controls}
+                </div>
                 <button 
                     className={classes.OrderButton}
                     disabled={!this.props.purchasable}
