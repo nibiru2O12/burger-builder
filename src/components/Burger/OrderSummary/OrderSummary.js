@@ -1,35 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Aux from '../../../hoc/Aux';
 import Button from '../../../UI/Button/Button';
 
-const OrderSummary = (props) => {
+class OrderSummary extends Component{
 
-    const ingredients = Object.keys(props.ingredients)
-                        .map(key=>{
-                            let orderCount = props.ingredients[key]
-                            let ing = (
-                                orderCount === 0 ? null 
-                                : (<li key={key}> 
-                                        {key} {`(x${orderCount})`} 
-                                    </li>)
-                            );
-                            return ing;
-                        });
+    render(){
+        const ingredients = Object.keys(this.props.ingredients)
+        .map(key=>{
+            let orderCount = this.props.ingredients[key]
+            let ing = (
+                orderCount === 0 ? null 
+                : (<li key={key}> 
+                        {key} {`(x${orderCount})`} 
+                    </li>)
+            );
+            return ing;
+        });
 
-    return (
-        <Aux>
+        return(
+            <Aux>
             <h4>Order Summary</h4>
             <p>This is your burger's ingredients</p>
             <ul>
                 {ingredients}
             </ul>
-            <p><b><span>Total Price : </span> {props.price.toFixed(2)} </b></p>
+            <p><b><span>Total Price : </span> {this.props.price.toFixed(2)} </b></p>
             <p>Do you cofirm your order?</p>
 
-            <Button btnType='Danger' onClick={props.cancelOrder}>CANCEL</Button>
-            <Button btnType='Success' onClick={props.proceedOrder}>CONFIRM</Button>
+            <Button btnType='Danger' onClick={this.props.cancelOrder}>CANCEL</Button>
+            <Button btnType='Success' onClick={this.props.proceedOrder}>CONFIRM</Button>
 
         </Aux>
-    );
+        );
+    }
 }
+
 export default OrderSummary;
