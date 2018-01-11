@@ -5,6 +5,7 @@ import Burger from '../../components/Burger/Burger'
 import BuildControls from '../../components/Burger/BuildControls//BuildControls';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Modal from '../../UI/Modal/Modal'
+import ModalAsk from '../../UI/Modal/ModalAsk/ModalAsk';
 
 const INGREDIENTS_PRICE={
     Meat:2,Cheese:2,Salad:3,Bacon:5
@@ -21,7 +22,8 @@ class BurgerBuilder extends Component {
       },
       totalPrice:0,
       purchasable:false,
-      checkout:false
+      checkout:false,
+      reset:false
     }
 
     handleProceedOrder = () => {
@@ -53,6 +55,27 @@ class BurgerBuilder extends Component {
             purchasable: (sum > 0) ? true : false
         });
 
+    }
+
+    handleToggleReset = () => {
+        this.setState(prev => {
+            return {reset:!prev.reset}
+        });
+    }
+
+    handleResetAction = () => {
+        let ingredients = {...this.state.ingredients};
+
+        Object.keys(ingredients).forEach(key=>{
+            ingredients[key]=0;
+        });
+
+        this.setState({
+            ingredients : ingredients,
+            totalPrice:0,purchasable:false
+        });
+
+        this.handleToggleReset();
     }
 
     handleIncrementIngredient  = (type) =>{
@@ -92,6 +115,7 @@ class BurgerBuilder extends Component {
         return (
             
             <Aux>
+
                 <Modal show={this.state.checkout} close={this.handleCloseModal}>
                     <OrderSummary 
                         show={this.state.checkout}
@@ -100,6 +124,14 @@ class BurgerBuilder extends Component {
                         proceedOrder={this.handleProceedOrder}
                         cancelOrder={this.handleCancelOrder} />
                 </Modal>
+                
+                <ModalAsk show ={this.state.reset} 
+                          close ={this.handleToggleReset} 
+                          no = {this.handleCloseModal} 
+                          yes = {this.handleResetAction} >
+                    Reset your burger ingredient?
+                </ModalAsk>
+
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls 
                     price={this.state.totalPrice}
@@ -107,7 +139,8 @@ class BurgerBuilder extends Component {
                     addIngredient={this.handleIncrementIngredient}
                     decIngredient={this.handleDecrementIngredient}
                     purchasable={this.state.purchasable}
-                    checkout={this.handleCheckout} />
+                    checkout={this.handleCheckout}
+                    reset = {this.handleToggleReset} />
 
             </Aux>
         )

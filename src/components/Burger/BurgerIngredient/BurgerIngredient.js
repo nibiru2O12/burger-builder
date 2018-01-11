@@ -37,7 +37,7 @@ class BurgerIngredients extends Component {
                 ingredients = <div className={classes.Cheese}></div>
                 break;
             default:
-            console.log(this.props.type);
+                console.log(this.props.type);
                 ingredients = <div> case default</div>;
                 break;
         }
