@@ -10,20 +10,24 @@ const withErrorHandler = (WrappedComponent,axios) => {
         }
 
         componentWillMount(){
-            axios.interceptors.request.use(null,error => {
+           this.reqInterceptors =  axios.interceptors.request.use(null,error => {
                 this.setState({
                     error:error
                 });
                 return true;
             });
-            axios.interceptors.response.use(null,error => {
+            this.resInterceptors =  axios.interceptors.response.use(null,error => {
                 this.setState({
                     error:error
                 });
                 return true;
             })
 
-            console.log('checkking response');
+        }
+
+        componentWillUnmount(){
+            axios.interceptors.request.eject(  this.reqInterceptors );
+            axios.interceptors.response.eject(  this.resInterceptors );
         }
 
         handleCloseModal = () => {
@@ -33,7 +37,6 @@ const withErrorHandler = (WrappedComponent,axios) => {
         render() {
 
             let errModal=null;
-            console.log('with error',this.state.error);
             if (this.state.error){
                
                 errModal = (

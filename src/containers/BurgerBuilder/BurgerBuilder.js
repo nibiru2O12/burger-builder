@@ -26,15 +26,19 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount(){
-        this.setState({isLoading:true,checkout:true});
+        this.handleFetchIngredients();
+    }
+
+    handleFetchIngredients(){
+        this.setState({isLoading:true});
         axiosOrder.get('/ingredients.json')
         .then(response => {
             this.setState({
                 ingredients:response.data
             });
         })
-        .then(res => this.setState({isLoading:false,checkout:false}))
-        .catch(err => this.setState({isLoading:false,checkout:false}));
+        .then(res => this.setState({isLoading:false}))
+        .catch(err => this.setState({isLoading:false}));
     }
 
     handleProceedOrder = () => {
@@ -92,14 +96,10 @@ class BurgerBuilder extends Component {
     }
 
     handleResetAction = () => {
-        let ingredients = {...this.state.ingredients};
-
-        Object.keys(ingredients).forEach(key=>{
-            ingredients[key]=0;
-        });
+        
+        this.handleFetchIngredients();
 
         this.setState({
-            ingredients : ingredients,
             totalPrice:0,purchasable:false
         });
 
@@ -155,7 +155,11 @@ class BurgerBuilder extends Component {
             );
         }
 
-        console.log(orderElement)
+        let burgerComponent = (<Spinner />);
+
+        if(!this.state.isLoading){
+            burgerComponent = <Burger ingredients={this.state.ingredients} />
+        }
         
         return (
 
@@ -171,8 +175,7 @@ class BurgerBuilder extends Component {
                           yes = {this.handleResetAction} >
                     Reset your burger ingredient?
                 </ModalAsk>
-                
-                <Burger ingredients={this.state.ingredients} />
+                {burgerComponent}
                 <BuildControls 
                     price={this.state.totalPrice}
                     ingredients={this.state.ingredients}
