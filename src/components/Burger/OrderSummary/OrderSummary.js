@@ -5,17 +5,21 @@ import Button from '../../../UI/Button/Button';
 class OrderSummary extends Component{
 
     render(){
-        const ingredients = Object.keys(this.props.ingredients)
-        .map(key=>{
-            let orderCount = this.props.ingredients[key]
-            let ing = (
-                orderCount === 0 ? null 
-                : (<li key={key}> 
-                        {key} {`(x${orderCount})`} 
-                    </li>)
-            );
-            return ing;
-        });
+        let ingredients = null;
+        
+        if(this.props.ingredients){
+            ingredients = Object.keys(this.props.ingredients)
+            .map(key=>{
+                let orderCount = this.props.ingredients[key]
+                let ing = (
+                    orderCount === 0 ? null 
+                    : (<li key={key}> 
+                            {key} {`(x${orderCount})`} 
+                        </li>)
+                );
+                return ing;
+            });
+        }
 
         return(
             <Aux>

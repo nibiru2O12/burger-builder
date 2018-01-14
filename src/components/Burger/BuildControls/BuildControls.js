@@ -8,15 +8,19 @@ class BuildControls extends Component {
     render() {
 
         const {ingredients} = this.props;
-        const controls = Object.keys(ingredients).map((key)=>{
-            return {type:key,value:ingredients[key]};
-        }).map((ing,i)=>{
-            return (<BuildControl 
-                        ingredient={ing} key={i} 
-                        addIngredient={this.props.addIngredient}
-                        decIngredient={this.props.decIngredient}
-                        disabled={ ing['value'] > 0 ? false : true }/>)
-        });
+        let  controls =null;
+        
+        if(ingredients){
+            controls = Object.keys(ingredients).map((key)=>{
+                return {type:key,value:ingredients[key]};
+            }).map((ing,i)=>{
+                return (<BuildControl 
+                            ingredient={ing} key={i} 
+                            addIngredient={this.props.addIngredient}
+                            decIngredient={this.props.decIngredient}
+                            disabled={ ing['value'] > 0 ? false : true }/>)
+            });
+        }
 
         return (
             <div className={classes.BuildControls}>

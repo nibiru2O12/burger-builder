@@ -9,7 +9,7 @@ const withErrorHandler = (WrappedComponent,axios) => {
             error:null
         }
 
-        componentDidMount(){
+        componentWillMount(){
             axios.interceptors.request.use(null,error => {
                 this.setState({
                     error:error
@@ -33,8 +33,9 @@ const withErrorHandler = (WrappedComponent,axios) => {
         render() {
 
             let errModal=null;
+            console.log('with error',this.state.error);
             if (this.state.error){
-                
+               
                 errModal = (
                     <Modal show={this.state.error ? true : false}
                             close ={this.handleCloseModal}>
