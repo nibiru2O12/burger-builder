@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
 
 import WithErrorHandler from '../../UI/withErrorHandler/withErrorHandler'; 
 import Aux from '../../hoc/Aux';
@@ -62,7 +63,10 @@ class BurgerBuilder extends Component {
         .then(response => this.setState({isLoading:false,checkout:false}))
         .catch(err => this.setState({isLoading:false,checkout:false}))
         */
-        this.props.history.push('/checkout');
+        this.props.history.push({
+            pathname:'/checkout',
+            state:{ingredients:this.state.ingredients}
+        });
     }
 
     handleCancelOrder = () => {
