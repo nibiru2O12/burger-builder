@@ -8,6 +8,7 @@ import Layout from './components/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import asyncComponent from './hoc/AsyncComponent';
 import Checkout from './containers/Checkout/Checkout';
+import ContactData from './containers/Checkout/ContactData/ContactData';
 
 /*
 const Checkout = asyncComponent(()=>{
@@ -20,14 +21,13 @@ class App extends Component {
       <BrowserRouter>
         <Layout>
             <Switch>
-              <Route path='/checkout' exact component={Checkout} />
-              <Route path='/' exact  component={BurgerBuilder} />
-              <Route render={()=> <h1>Page not found!</h1>} />
+              <Route path='/checkout'  component={Checkout} />
+              <Route path='/'   component={BurgerBuilder} />
             </Switch>
         </Layout>
       </BrowserRouter>
     );
   }
 }
-
+//<Route render={()=> <h1>Page not found!</h1>} />
 export default App;
