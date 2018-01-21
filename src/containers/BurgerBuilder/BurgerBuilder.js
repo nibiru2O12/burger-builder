@@ -43,6 +43,8 @@ class BurgerBuilder extends Component {
 
     handleProceedOrder = () => {
         this.setState({isLoading:true});
+        
+        /*
         const {ingredients,totalPrice} = this.state;
 
         axiosOrder.post('/orders.json',{
@@ -59,7 +61,8 @@ class BurgerBuilder extends Component {
         })
         .then(response => this.setState({isLoading:false,checkout:false}))
         .catch(err => this.setState({isLoading:false,checkout:false}))
-        
+        */
+        this.props.history.push('/checkout');
     }
 
     handleCancelOrder = () => {
