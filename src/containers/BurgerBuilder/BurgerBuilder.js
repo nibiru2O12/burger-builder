@@ -45,7 +45,7 @@ class BurgerBuilder extends Component {
         this.setState({isLoading:true});
         const {ingredients,totalPrice} = this.state;
 
-        axiosOrder.post('/orders',{
+        axiosOrder.post('/orders.json',{
             customer: {
                 name:'rj',
                 address:{
