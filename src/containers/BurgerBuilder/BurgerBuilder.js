@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {Redirect} from 'react-router-dom';
 
 import WithErrorHandler from '../../UI/withErrorHandler/withErrorHandler'; 
 import Aux from '../../hoc/Aux';
@@ -45,24 +44,7 @@ class BurgerBuilder extends Component {
     handleProceedOrder = () => {
         this.setState({isLoading:true});
         
-        /*
-        const {ingredients,totalPrice} = this.state;
-
-        axiosOrder.post('/orders.json',{
-            customer: {
-                name:'rj',
-                address:{
-                    country:'philippines',
-                    zip:'4114',
-                    street:'peninsula st'
-                },
-                email:"robert.gagui@gmail.com",
-                deliveryMethod:"COD"
-            },ingredients,totalPrice
-        })
-        .then(response => this.setState({isLoading:false,checkout:false}))
-        .catch(err => this.setState({isLoading:false,checkout:false}))
-        */
+        
         this.props.history.push({
             pathname:'/checkout',
             state:{ingredients:this.state.ingredients}

@@ -6,7 +6,6 @@ import Button from '../../../UI/Button/Button';
 
 const CheckoutSummary = (props) => {
     const {ingredients,onCancel,onContinue} = props;
-    console.log(props);
     return(
         <div className={classes.CheckoutSummary}>
             <h1> Eat EAT!</h1>

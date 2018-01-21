@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import Button from '../../../UI/Button/Button';
+import {withRouter} from 'react-router-dom';
 
+import Button from '../../../UI/Button/Button';
 import classes from './ContactData.css';
 import axiosOrder from '../../../axios-instances/axios-order';
+import Spinner from '../../../UI/Spinner/Spinner';
 
 class ContactData extends Component {
     state = { 
@@ -56,20 +58,29 @@ class ContactData extends Component {
             customer: this.state.customer,ingredients
         })
         .then(response => {
-            this.setState({isLoading:true});
+            this.setState({isLoading:false});
             console.log("data" , this.state )
         })
         .catch(err => this.setState({isLoading:false}))
 
+        alert('Thanks for ordering');
+
+        this.props.history.replace('/');
         //prevent submiting form
         e.preventDefault();
      }
 
     render() {
-        console.log(this.state);
+
+        if(this.state.isLoading){
+            return (
+                <Spinner show={this.state.isLoading} />
+            );
+        }
         
         return (
             <div className={classes.ContactData}>
+                
                 <h4>Enter tour Contact Data</h4>
                 <form>
                     <input type="text" name="name" 
@@ -87,4 +98,4 @@ class ContactData extends Component {
     }
 }
 
-export default ContactData;
+export default withRouter(ContactData);

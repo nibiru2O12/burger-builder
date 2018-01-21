@@ -4,6 +4,7 @@ import {Route} from 'react-router-dom';
 
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactData from './ContactData/ContactData';
+import Spinner from '../../UI/Spinner/Spinner';
 
 class Checkout extends Component{
 
@@ -22,21 +23,21 @@ class Checkout extends Component{
             return true;
         }
 
-        //this.props.history.replace('/');
+        this.props.history.replace('/');
 
     }
 
-    handleCancelCheckout = () =>{
+    handleCancelCheckout = () => {
         this.props.history.goBack();
     }
 
-    handleContinueCheckout = () =>{
+    handleContinueCheckout = () => {
         this.props.history.replace(`${this.props.location.pathname}/contact-details`);
     }
 
     render(){
         const {match} = this.props;
-        console.log(this.state);
+
         return(
             <div>
                 <CheckoutSummary 
