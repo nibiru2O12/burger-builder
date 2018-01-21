@@ -22,7 +22,7 @@ class Checkout extends Component{
             return true;
         }
 
-        this.props.history.replace('/');
+        //this.props.history.replace('/');
 
     }
 
@@ -44,7 +44,8 @@ class Checkout extends Component{
                     onCancel = {this.handleCancelCheckout}
                     onContinue = {this.handleContinueCheckout} />
 
-                <Route path={`${match.url}/contact-details`} component={ContactData}/>
+                <Route path={`${match.url}/contact-details`} 
+                        render={()=>(<ContactData ingredients={this.state.ingredients} />)}/>
             </div>
         );
     }
