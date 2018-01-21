@@ -3,7 +3,6 @@ import {withRouter} from 'react-router-dom';
 
 import Button from '../../UI/Button/Button';
 import classes from './ContactData.css';
-import Spinner from '../../UI/Spinner/Spinner';
 
 class ContactData extends Component {
     state = { 

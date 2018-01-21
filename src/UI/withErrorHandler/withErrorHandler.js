@@ -10,6 +10,7 @@ const withErrorHandler = (WrappedComponent,axios) => {
         }
 
         componentWillMount(){
+            console.log('order mounted')
            this.reqInterceptors =  axios.interceptors.request.use(null,error => {
                 this.setState({
                     error:error
@@ -47,8 +48,8 @@ const withErrorHandler = (WrappedComponent,axios) => {
                 );
             }
 
+            console.log(errModal)
             return (
-
                 <Aux>
                     {errModal}
                     <WrappedComponent {...this.props} />
