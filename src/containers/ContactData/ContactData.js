@@ -3,18 +3,60 @@ import {withRouter} from 'react-router-dom';
 
 import Button from '../../UI/Button/Button';
 import classes from './ContactData.css';
+import Input from '../../UI/Input/Input';
 
 class ContactData extends Component {
     state = { 
         customer: {
-            name:'',
-            address:{
-                country:'',
-                zip:'',
-                street:''
+            name:{
+                value:'',
+                props:{
+                    label:'Name',
+                    name:'name',
+                    type:'input',
+                    placeholder:"Enter your name"
+                },
+                required:true
+                
             },
-            email:"",
-            deliveryMethod:"COD"
+            country:{
+                value:'',
+                props:{
+                    label:'Country',
+                    name:'country',
+                    type:"input",
+                    placeholder:"Country"
+                },
+                required:true
+            },
+            zip:{
+                value:'',
+                props:{
+                    label:'ZIP CODE',
+                    name:'zip',
+                    type:"input",
+                    placeholder:"ZIP CODE"
+                }
+            },
+            street:{
+                value:'',
+                props:{
+                    label:"Street",
+                    name:'street',
+                    type:"input",
+                    placeholder:"Street"
+                },
+                required:true
+            },
+            email:{
+                value:'',
+                props:{
+                    label:"Email",
+                    name:'email',
+                    type:"email",
+                    placeholder:"Your Email"
+                }
+            }
         } 
     }
 
@@ -22,51 +64,31 @@ class ContactData extends Component {
         this.setState({ingredients:this.props.ingredients});
      }
 
-     handleContactChange = (e) => {
-        const {target} = e;
-        let customer = {...this.state.customer};
+     handleFormChanged = (e) => {
 
-        customer[target.name]=target.value;
+        let input = {...this.state.customer};
 
-        this.setState({
-            customer:customer
-        });
-     }
+        input[e.target.name].value = e.target.value;
 
-     handleAddressChange = (e) =>{
-        const {target} = e;
-        let address = {...this.state.customer.address};
+        this.setState({customer:input});
 
-        address[target.name]=target.value;
-
-        this.setState({
-            address:address
-        });
      }
 
     render() {
 
+        let inputs = Object.keys(this.state.customer).map(cust => {
+            return <Input key={cust}  {...this.state.customer[cust].props} onChange={this.handleFormChanged} />
+        });
+
         return (
+
             <div className={classes.ContactData}>
                 
                 <h4>Enter tour Contact Data</h4>
+
                 <form>
-                    <input type="text" 
-                            name="name" 
-                            placeholder='Enter yout name'
-                            onChange={e => this.handleContactChange(e)} 
-                            value={this.state.customer.name} />
-                    <input type="email" 
-                            name="email" 
-                            placeholder="something@email.com" 
-                            onChange={e => this.handleContactChange(e)}
-                            value={this.state.customer.email} />
-                    <input type="text" 
-                            name="street"
-                            value={this.state.customer.address.street} />
-                    <input type="text" 
-                            name="zip"
-                            value={this.state.customer.address.zip} />
+                
+                    {inputs}
                     <Button btnType="Success" 
                             onClick={(e) => {
                                 this.props.submitOrder(e,this.state.customer);
