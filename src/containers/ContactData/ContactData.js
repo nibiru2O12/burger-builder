@@ -24,8 +24,14 @@ class ContactData extends Component {
                 props:{
                     label:'Country',
                     name:'country',
-                    type:"input",
-                    placeholder:"Country"
+                    type:"select",
+                    option:[
+                        {value:"ph",display:"Philippines"},
+                        {value:"usa",display:"United State of America"},
+                        {value:"ca",display:"Canada"},
+                        {value:"sg",display:"Singapore"}
+                    ],
+                    sortBy:"display"
                 },
                 required:true
             },
@@ -38,13 +44,14 @@ class ContactData extends Component {
                     placeholder:"ZIP CODE"
                 }
             },
-            street:{
+            address:{
                 value:'',
                 props:{
-                    label:"Street",
-                    name:'street',
-                    type:"input",
-                    placeholder:"Street"
+                    label:"Address",
+                    name:'address',
+                    type:"textarea",
+                    rows:3,
+                    placeholder:"Address"
                 },
                 required:true
             },
@@ -54,7 +61,7 @@ class ContactData extends Component {
                     label:"Email",
                     name:'email',
                     type:"email",
-                    placeholder:"Your Email"
+                    placeholder:"YourEmail@something.com"
                 }
             }
         } 
