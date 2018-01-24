@@ -20,7 +20,17 @@
     padding: 6px 10px;
 }
 
+.InputError{
+    border: 1px solid red;
+}
+
 .InputElement:focus{
     outline: none;
     background-color: #ccc;
+}
+
+.Error{
+    color:red;
+    font:.7em;
+
 }

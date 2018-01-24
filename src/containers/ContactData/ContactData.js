@@ -7,9 +7,9 @@ import Input from '../../UI/Input/Input';
 
 class ContactData extends Component {
     state = { 
-        customer: {
+        orderForm: {
             name:{
-                value:'',
+                value:'asd',
                 props:{
                     label:'Name',
                     name:'name',
@@ -31,7 +31,7 @@ class ContactData extends Component {
                         {value:"ca",display:"Canada"},
                         {value:"sg",display:"Singapore"}
                     ],
-                    sortBy:"display"
+                    sortby:"display"
                 },
                 required:true
             },
@@ -63,7 +63,22 @@ class ContactData extends Component {
                     type:"email",
                     placeholder:"YourEmail@something.com"
                 }
+            },
+            paymentMethod:{
+                value:"",
+                props:{
+                    label:"Payment Method",
+                    name:"paymentMethod",
+                    type:"select",
+                    option:[
+                        {value:"cod",display:"COD"},
+                        {value:"card",display:"CREDIT / DEBIT CARD"},
+                        {value:"paypal",display:"Paypal"}
+                    ],
+                    sortby:null
+                }
             }
+
         } 
     }
 
@@ -71,20 +86,57 @@ class ContactData extends Component {
         this.setState({ingredients:this.props.ingredients});
      }
 
-     handleFormChanged = (e) => {
+     handleInputChange = (e) => {
 
-        let input = {...this.state.customer};
+        let input = {...this.state.orderForm};
 
         input[e.target.name].value = e.target.value;
 
-        this.setState({customer:input});
+        if(input[e.target.name].required && e.target.value===''){
+            //check if field is required
+            input[e.target.name].props.error = " is Required"
+        }else{
+            input[e.target.name].props.error = null;
+        }
+
+        this.setState({orderForm:input});
 
      }
 
+     handleSubmit = (e) => {
+
+        e.preventDefault();
+
+        let orderForm = {...this.state.orderForm}
+        let newForm = {};
+
+        let hasError = false;
+
+        for( let o in orderForm){
+
+            if(orderForm[o].required && orderForm[o].value===''){
+                //check if field is required
+                orderForm[o].props.error = " is Required"
+                hasError=true
+            }
+            newForm[o]=orderForm[o].value ;
+        }
+
+        if(hasError){
+            this.setState({orderForm});
+            return false
+        }
+
+        this.props.submitOrder(e,newForm);
+
+    }
+
     render() {
 
-        let inputs = Object.keys(this.state.customer).map(cust => {
-            return <Input key={cust}  {...this.state.customer[cust].props} onChange={this.handleFormChanged} />
+        const {orderForm} = this.state;
+
+        let inputs = Object.keys(orderForm).map(cust => {
+            return <Input key={cust} value={orderForm[cust].value} {...orderForm[cust].props} onChange={this.handleInputChange} />
         });
 
         return (
@@ -93,16 +145,9 @@ class ContactData extends Component {
                 
                 <h4>Enter tour Contact Data</h4>
 
-                <form>
-                
+                <form onSubmit={e => this.handleSubmit(e)} >
                     {inputs}
-                    <Button btnType="Success" 
-                            onClick={(e) => {
-                                this.props.submitOrder(e,this.state.customer);
-                                e.preventDefault();
-                            }}>
-                            ORDER
-                    </Button>
+                    <Button btnType="Success">ORDER</Button>
                 </form>
             </div>
         );
