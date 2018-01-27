@@ -16,7 +16,10 @@ class ContactData extends Component {
                     type:'input',
                     placeholder:"Enter your name"
                 },
-                required:true
+                validations:{
+                    required:true
+                },
+                errMessages:[]
                 
             },
             country:{
@@ -26,6 +29,7 @@ class ContactData extends Component {
                     name:'country',
                     type:"select",
                     option:[
+                        {value:"",display:""},
                         {value:"ph",display:"Philippines"},
                         {value:"usa",display:"United State of America"},
                         {value:"ca",display:"Canada"},
@@ -33,7 +37,10 @@ class ContactData extends Component {
                     ],
                     sortby:"display"
                 },
-                required:true
+                validations:{
+                    required:true
+                },
+                errMessages:[]
             },
             zip:{
                 value:'',
@@ -42,7 +49,11 @@ class ContactData extends Component {
                     name:'zip',
                     type:"input",
                     placeholder:"ZIP CODE"
-                }
+                },
+                validations:{
+                    minLength:4
+                },
+                errMessages:[]
             },
             address:{
                 value:'',
@@ -53,7 +64,10 @@ class ContactData extends Component {
                     rows:3,
                     placeholder:"Address"
                 },
-                required:true
+                validations:{
+                    required:true
+                },
+                errMessages:[]
             },
             email:{
                 value:'',
@@ -71,11 +85,15 @@ class ContactData extends Component {
                     name:"paymentMethod",
                     type:"select",
                     option:[
+                        {value:"",display:""},
                         {value:"cod",display:"COD"},
                         {value:"card",display:"CREDIT / DEBIT CARD"},
                         {value:"paypal",display:"Paypal"}
                     ],
                     sortby:null
+                },
+                validations:{
+                    required:true
                 }
             }
 
@@ -86,20 +104,50 @@ class ContactData extends Component {
         this.setState({ingredients:this.props.ingredients});
      }
 
-     handleInputChange = (e) => {
+     handleInputChange = ({target}) => {
 
-        let input = {...this.state.orderForm};
+        //create copy of order form
+        const oform = {...this.state.orderForm};
 
-        input[e.target.name].value = e.target.value;
+        //change field valud
+        oform[target.name].value = target.value;
 
-        if(input[e.target.name].required && e.target.value===''){
-            //check if field is required
-            input[e.target.name].props.error = " is Required"
-        }else{
-            input[e.target.name].props.error = null;
+        //get all errors
+        oform[target.name].errMessages =  this.funcValidation(oform[target.name]);
+
+        this.setState({orderForm:oform});
+
+     }
+
+     funcValidation = (field) => {
+
+        let errMsg = [];
+
+        // return true if no validation is setup
+        if(!field.validations) return errMsg;
+
+        //check all validation
+        for(let v in field.validations){
+            switch(v){
+                case "required":
+                    if(field.value==='') errMsg.push('is Required');
+                    break;
+                case "minLength":
+                   if(field.value.length < field.validations[v]) 
+                    {
+                        errMsg.push(`Please enter atleast ${field.validations[v]} characters`);
+                    }
+                    break;
+                case "maxLength":
+                    if(field.value.length > field.validations[v]){
+                        errMsg.push(`Please enter not exceeding ${field.validations[v]} characters`);
+                    }
+                    break;
+                default:
+            }
         }
 
-        this.setState({orderForm:input});
+        return errMsg;
 
      }
 
@@ -113,13 +161,13 @@ class ContactData extends Component {
         let hasError = false;
 
         for( let o in orderForm){
-
-            if(orderForm[o].required && orderForm[o].value===''){
-                //check if field is required
-                orderForm[o].props.error = " is Required"
-                hasError=true
-            }
+            orderForm[o].errMessages = this.funcValidation(orderForm[o]);
             newForm[o]=orderForm[o].value ;
+            
+            if(orderForm[o].errMessages){
+                hasError=true;
+            }
+            
         }
 
         if(hasError){
@@ -127,7 +175,7 @@ class ContactData extends Component {
             return false
         }
 
-        this.props.submitOrder(e,newForm);
+        //this.props.submitOrder(e,newForm);
 
     }
 
@@ -136,7 +184,11 @@ class ContactData extends Component {
         const {orderForm} = this.state;
 
         let inputs = Object.keys(orderForm).map(cust => {
-            return <Input key={cust} value={orderForm[cust].value} {...orderForm[cust].props} onChange={this.handleInputChange} />
+            return <Input key={cust} 
+                            {...orderForm[cust].props} 
+                            value={orderForm[cust].value} 
+                            error={orderForm[cust].errMessages}
+                            onChange={this.handleInputChange} />
         });
 
         return (

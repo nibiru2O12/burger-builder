@@ -5,12 +5,19 @@ import classes from './Input.css';
 const Input = (props) => {
     
     let input = null;
+    let errors = null;
 
     let inputClass = [classes.InputElement];
 
-    if(props.error) inputClass.push(classes.InputError);
+    if(props.error){
+        if(props.error.length !== 0){
+            inputClass.push(classes.InputError);
+            errors = props.error.map(err => {
+                return (<p key={err} className={classes.Error}>{err}</p>);
+             });
+        }
+    }
 
-    console.log(inputClass)
     switch(props.type){
         case "select":
             input = <Select className={inputClass.join(' ')} {...props} />
@@ -29,9 +36,11 @@ const Input = (props) => {
                 { props.isrequired ? `*${props.label}` : props.label}
             </label> 
             {input}
-            {
-                props.error ? <p className={classes.Error}>{`*${props.label} ${props.error}`}</p> :null
-             }
+            
+            <div>
+                {errors}
+            </div>
+
         </div>
     );
 }
