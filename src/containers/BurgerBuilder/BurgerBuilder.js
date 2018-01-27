@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import classes from './BurgerBuilder.css';
 import WithErrorHandler from '../../UI/withErrorHandler/withErrorHandler'; 
 import Aux from '../../hoc/Aux';
 import Burger from '../../components/Burger/Burger'
@@ -164,15 +165,21 @@ class BurgerBuilder extends Component {
                           yes = {this.handleResetAction} >
                     Reset your burger ingredient?
                 </ModalAsk>
-                {burgerComponent}
-                <BuildControls 
-                    price={this.state.totalPrice}
-                    ingredients={this.state.ingredients}
-                    addIngredient={this.handleIncrementIngredient}
-                    decIngredient={this.handleDecrementIngredient}
-                    purchasable={this.state.purchasable}
-                    checkout={this.handleCheckout}
-                    reset = {this.handleToggleReset} />
+                <div className={classes.BurgerBuilder}>
+                    <div className={classes.Burger}>
+                        {burgerComponent}
+                    </div>
+                    <div className={classes.BurgerControls}>
+                        <BuildControls 
+                            price={this.state.totalPrice}
+                            ingredients={this.state.ingredients}
+                            addIngredient={this.handleIncrementIngredient}
+                            decIngredient={this.handleDecrementIngredient}
+                            purchasable={this.state.purchasable}
+                            checkout={this.handleCheckout}
+                            reset = {this.handleToggleReset} />
+                    </div>
+                </div>
 
             </Aux>
         )

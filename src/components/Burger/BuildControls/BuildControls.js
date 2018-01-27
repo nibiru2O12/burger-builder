@@ -24,9 +24,7 @@ class BuildControls extends Component {
 
         return (
             <div className={classes.BuildControls}>
-                <button onClick={this.props.reset} disabled={!this.props.purchasable}>
-                    Reset
-                </button>
+                
                 Total Price : {this.props.price}
                 <div className={classes.Ingredients}>
                     {controls}
@@ -36,6 +34,9 @@ class BuildControls extends Component {
                     disabled={!this.props.purchasable}
                     onClick={this.props.checkout}>
                     ORDER NOW
+                </button>
+                <button className={classes.ResetButton} onClick={this.props.reset} disabled={!this.props.purchasable}>
+                    Reset
                 </button>
             </div>
         );
