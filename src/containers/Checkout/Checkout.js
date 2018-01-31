@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import {Route} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactData from '../ContactData/ContactData';
@@ -10,12 +11,13 @@ import axiosOrder from '../../axios-instances/axios-order';
 class Checkout extends Component{
 
     state = {
-        ingredients:{},
+        //ingredients:{},
         isLoading:false
     }
 
     componentDidMount(){
 
+        /*
         const ingredients = this.props.location.state;
 
         if(ingredients){
@@ -24,6 +26,8 @@ class Checkout extends Component{
             });
             return true;
         }
+
+        */
 
         //this.props.history.replace('/');
 
@@ -43,7 +47,6 @@ class Checkout extends Component{
         this.setState({isLoading:true});
         
         const {ingredients} = this.state;
-        console.log('submit ingredients',ingredients)
         axiosOrder.post('/orders.json',{
             customer,ingredients
         })
@@ -71,7 +74,7 @@ class Checkout extends Component{
         return(
             <div>
                 <CheckoutSummary 
-                    ingredients = {this.state.ingredients}
+                    ingredients = {this.props.ingredients}
                     onCancel = {this.handleCancelCheckout}
                     onContinue = {this.handleContinueCheckout} />
 
@@ -84,4 +87,9 @@ class Checkout extends Component{
     }
 }
 
-export default Checkout;
+const mapStateToProps = (state) => {
+    return {
+        ingredients: state.burger.order.ingredients
+    }
+}
+export default connect(mapStateToProps)(Checkout);
