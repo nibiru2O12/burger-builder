@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 
 import classes from './BurgerBuilder.css';
 import WithErrorHandler from '../../UI/withErrorHandler/withErrorHandler'; 
@@ -10,6 +11,7 @@ import Modal from '../../UI/Modal/Modal'
 import ModalAsk from '../../UI/Modal/ModalAsk/ModalAsk';
 import Spinner from '../../UI/Spinner/Spinner';
 import axiosOrder from '../../axios-instances/axios-order';
+import * as actions from '../../actions';
 
 const INGREDIENTS_PRICE={
     Meat:2,Cheese:2,Salad:3,Bacon:5
@@ -45,10 +47,14 @@ class BurgerBuilder extends Component {
     handleProceedOrder = () => {
         this.setState({isLoading:true});
         
-        
+        this.props.addNewOrder({
+            ingredients : this.state.ingredients,
+            price : this.state.totalPrice
+        })
+
         this.props.history.push({
-            pathname:'/checkout',
-            state:{ingredients:this.state.ingredients}
+            pathname:'/checkout'
+            //state:{ingredients:this.state.ingredients}
         });
     }
 
@@ -186,4 +192,16 @@ class BurgerBuilder extends Component {
     }
 }
 
-export default WithErrorHandler(BurgerBuilder,axiosOrder);
+const mapStateToProps = (state, ownProps) => {
+    return {
+        order : state.burger.order
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return{
+        addNewOrder : (order) => dispatch(actions.addNewOrder(order))
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(WithErrorHandler(BurgerBuilder,axiosOrder));
