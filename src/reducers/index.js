@@ -19,12 +19,10 @@ function orderReducer(state=inititalState,action) {
             return state;
     }
 
-
 }
 
 const rootReducer = combineReducers({
-    order : orderReducer
+    burger : orderReducer
 });
-
 export default rootReducer;
 
