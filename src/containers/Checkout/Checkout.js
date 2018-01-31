@@ -46,7 +46,7 @@ class Checkout extends Component{
 
         this.setState({isLoading:true});
         
-        const {ingredients} = this.state;
+        const {ingredients} = this.props;
         axiosOrder.post('/orders.json',{
             customer,ingredients
         })
