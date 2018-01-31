@@ -164,14 +164,13 @@ class ContactData extends Component {
             orderForm[o].errMessages = this.funcValidation(orderForm[o]);
             newForm[o]=orderForm[o].value ;
             
-            if(orderForm[o].errMessages.length===0){
+            if(orderForm[o].errMessages.length!==0){
                 console.log(orderForm[o].errMessages)
                 hasError=true;
             }
             
         }
 
-        
         if(hasError){
             this.setState({orderForm});
             return false

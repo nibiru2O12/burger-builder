@@ -1,20 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
+import {createStore,applyMiddleware, compose} from 'redux';
+import thunk from 'redux-thunk';
 
 import './index.css';
 import App from './App';
 import rootReducer from './reducers';
 
-const store= createStore(rootReducer);
+const composeEnhacer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
+const store= createStore(rootReducer,composeEnhacer(applyMiddleware(thunk)));
 store.subscribe(()=>console.log(store.getState()));
-store.dispatch({
-    type:"NEW_ORDER",
-    order:{
-        ingredients:[1,2,3],
-        price:2
-    }
-});
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
