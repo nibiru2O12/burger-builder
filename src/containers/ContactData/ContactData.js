@@ -19,7 +19,7 @@ class ContactData extends Component {
                 validations:{
                     required:true
                 },
-                errMessages:[]
+                errMessages:null
                 
             },
             country:{
@@ -164,18 +164,20 @@ class ContactData extends Component {
             orderForm[o].errMessages = this.funcValidation(orderForm[o]);
             newForm[o]=orderForm[o].value ;
             
-            if(orderForm[o].errMessages){
+            if(orderForm[o].errMessages.length===0){
+                console.log(orderForm[o].errMessages)
                 hasError=true;
             }
             
         }
 
+        
         if(hasError){
             this.setState({orderForm});
             return false
         }
 
-        //this.props.submitOrder(e,newForm);
+        this.props.submitOrder(e,newForm);
 
     }
 
