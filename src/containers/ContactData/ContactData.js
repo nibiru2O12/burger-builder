@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom';
 import Button from '../../UI/Button/Button';
 import classes from './ContactData.css';
 import Input from '../../UI/Input/Input';
+import validateInputControls,{inputValidation} from '../../UI/Input/inputValidation';
 
 class ContactData extends Component {
     state = { 
@@ -113,70 +114,27 @@ class ContactData extends Component {
         oform[target.name].value = target.value;
 
         //get all errors
-        oform[target.name].errMessages =  this.funcValidation(oform[target.name]);
+        oform[target.name].errMessages =  inputValidation(oform[target.name]);
 
         this.setState({orderForm:oform});
 
      }
 
-     funcValidation = (field) => {
-
-        let errMsg = [];
-
-        // return true if no validation is setup
-        if(!field.validations) return errMsg;
-
-        //check all validation
-        for(let v in field.validations){
-            switch(v){
-                case "required":
-                    if(field.value==='') errMsg.push('is Required');
-                    break;
-                case "minLength":
-                   if(field.value.length < field.validations[v]) 
-                    {
-                        errMsg.push(`Please enter atleast ${field.validations[v]} characters`);
-                    }
-                    break;
-                case "maxLength":
-                    if(field.value.length > field.validations[v]){
-                        errMsg.push(`Please enter not exceeding ${field.validations[v]} characters`);
-                    }
-                    break;
-                default:
-            }
-        }
-
-        return errMsg;
-
-     }
 
      handleSubmit = (e) => {
 
         e.preventDefault();
 
-        let orderForm = {...this.state.orderForm}
-        let newForm = {};
-
-        let hasError = false;
-
-        for( let o in orderForm){
-            orderForm[o].errMessages = this.funcValidation(orderForm[o]);
-            newForm[o]=orderForm[o].value ;
-            
-            if(orderForm[o].errMessages.length!==0){
-                console.log(orderForm[o].errMessages)
-                hasError=true;
-            }
-            
-        }
+        const {newForm,hasError,values} = validateInputControls({
+            ...this.state.orderForm
+        })
 
         if(hasError){
-            this.setState({orderForm});
+            this.setState({newForm});
             return false
         }
 
-        this.props.submitOrder(e,newForm);
+        this.props.submitOrder(e,values);
 
     }
 
