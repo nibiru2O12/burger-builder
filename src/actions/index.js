@@ -33,10 +33,10 @@ function orders_isLoading(value){
     }
 }
 
-export function fetchOrders(){
+export function fetchOrders(token=""){
     return (dispatch) => {
         dispatch(orders_isLoading(true));
-        axiosOrder.get('/orders.json')
+        axiosOrder.get('/orders.json?auth=' + token )
                   .then(({data}) => {
                         dispatch(orders_isLoading(false))
                         return dispatch(retrievOrders(setOrders(data)));
