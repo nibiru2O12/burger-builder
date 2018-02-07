@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {BrowserRouter,Route,Switch} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import './App.css';
 
@@ -9,6 +10,7 @@ import Orders from './containers/Orders/Orders';
 import Checkout from './containers/Checkout/Checkout';
 import Auth from './containers/Auth/Auth';
 import Logout from './containers/Auth/Logout';
+import Redirect from 'react-router-dom/Redirect';
 
 /*
 const Checkout = asyncComponent(()=>{
@@ -22,7 +24,7 @@ class App extends Component {
         <Layout>
             <Switch>
               <Route path='/checkout'  component={Checkout} />
-              <Route path='/orders'  component={Orders} />
+              <ProtectedRoute path='/orders' isAuth={this.props.isAuth}  component={Orders} />
               <Route path='/auth'  component={Auth} />
               <Route path='/logout'  component={Logout} />
               <Route path='/'  component={BurgerBuilder} />
@@ -33,4 +35,22 @@ class App extends Component {
     );
   }
 }
-export default App;
+
+const ProtectedRoute = (props) =>{
+
+  return (
+      props.isAuth 
+       ? <Route {...props} />
+       : <Redirect to={{
+         pathname:'/auth',
+         state:{from:props.path}
+       }} />
+  );
+}
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    isAuth: state.auth.token !== null
+  }
+}
+export default connect(mapStateToProps)(App);

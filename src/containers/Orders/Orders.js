@@ -20,14 +20,6 @@ class Orders extends Component {
     }
 
     render() {
-        if(!this.props.token){
-            return (
-                <Redirect to={{
-                    pathname:'/auth',
-                    state:{from:'/orders'}
-                }} />
-            );
-        }
 
         if(this.props.isLoading){
             return <Spinner />
