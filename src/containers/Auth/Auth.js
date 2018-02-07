@@ -8,6 +8,7 @@ import Input from '../../UI/Input/Input';
 import Button from '../../UI/Button/Button';
 import validateInputControls,{inputValidation} from '../../UI/Input/inputValidation';
 import classes from './Auth.css';
+import { Redirect } from 'react-router-dom';
 
 class Auth extends Component {
 
@@ -77,11 +78,6 @@ class Auth extends Component {
             this.props.signup(email.value,password.value);
         }
 
-        if(!this.props.location.state.from){
-        }
-        this.props.history.replace('/orders');
-        console.log(this.props.location.state.from)
-
     }
 
     handleToggleSignIn = (e) =>{
@@ -94,18 +90,12 @@ class Auth extends Component {
     }
 
     render() {
-        
-        if(!this.props.token){
-            this.props.history.replace('/orders');
-            return <div></div>
-        }
 
         let inputs = null;
         const {formControls} = this.state;
-        let authMethod = this.state.isSignIn ? 'SIGN-IN' : 'SIGN-UP'
 
         //show loading
-        if(this.props.auth.authenticating){
+        if(this.props.isAuthenticating){
             inputs = (<Spinner />);
         }else{
             inputs = Object.keys(formControls).map(cust => {
@@ -116,12 +106,17 @@ class Auth extends Component {
                                 onChange={this.handleInputChange} />
             });
         }
+
+        if(this.props.isAuthenticated){
+            inputs = <Redirect to='/' />
+        }
+
         return (
             <div>
                 <form className={classes.Auth} onSubmit={(e)=>this.handleSubmit(e)}>
                     <h3><u>{this.state.isSignIn ? 'SIGN-IN' : 'SIGN-UP'}</u></h3>
                     {inputs}
-                    <p>{this.props.auth.error}</p>
+                    <p>{this.props.error}</p>
                     <Button btnType="Success">Submit</Button>
                     <Button btnType="Danger" onClick={(e)=>this.handleToggleSignIn(e)}>
                             {!this.state.isSignIn ? 'Sign in' : 'Sign up'}
@@ -135,7 +130,9 @@ class Auth extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth : state.auth
+        isAuthenticating : state.auth.authenticating,
+        isAuthenticated: state.auth.token !== null,
+        error: state.auth.error
     }
 }
 

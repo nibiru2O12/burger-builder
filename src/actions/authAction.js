@@ -5,6 +5,7 @@ export const AUTH_END="AUTH_END";
 export const AUTH_FAIL="AUTH_FAIL";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
 export const AUTH_RESET = "AUTH_RESET";
+export const AUTH_LOGOUT = "AUTH_LOGOUT";
 
 export function authReset(){
     return{
@@ -32,6 +33,18 @@ function authSuccess(user){
     }
 }
 
+function autoLogout(expiryInSeconds){
+    return dispatch => {
+        setTimeout( dispatch(logout()) ,expiryInSeconds * 1000);
+    }
+}
+
+export function logout(){
+    return{
+        type:AUTH_LOGOUT
+    }
+}
+
 export function signup(email,password){
     
     return dispatch =>{
@@ -48,7 +61,6 @@ export function signup(email,password){
     }
 
 }
-
 
 export function signin(email,password){
     

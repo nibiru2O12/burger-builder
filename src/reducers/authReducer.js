@@ -3,6 +3,7 @@ import * as authAction from '../actions/authAction';
 const initialState = {
     authenticating: false,
     token:null,
+    expiry:null,
     error:null
 }
 
@@ -28,6 +29,10 @@ function authReducer(state=initialState,action){
             return {
                 ...state, authenticating : false,
                 token:null,error:action.error
+            }
+        case  authAction.AUTH_LOGOUT:
+            return{
+                ...initialState
             }
         default:
             return state;

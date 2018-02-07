@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 
 import classes from "./Layout.css";
 import Aux from '../../hoc/Aux';
 import Toolbar from '../Navigation/Toolbar/Toolbar';
 import Sidedrawer from '../Navigation/Sidedrawer/Sidedrawer';
+
 
 class Layout extends Component {
 
@@ -31,4 +33,4 @@ class Layout extends Component {
     }
 }
 
-export default Layout;
+export default (Layout);

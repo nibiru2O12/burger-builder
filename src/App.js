@@ -8,6 +8,7 @@ import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Orders from './containers/Orders/Orders';
 import Checkout from './containers/Checkout/Checkout';
 import Auth from './containers/Auth/Auth';
+import Logout from './containers/Auth/Logout';
 
 /*
 const Checkout = asyncComponent(()=>{
@@ -23,6 +24,7 @@ class App extends Component {
               <Route path='/checkout'  component={Checkout} />
               <Route path='/orders'  component={Orders} />
               <Route path='/auth'  component={Auth} />
+              <Route path='/logout'  component={Logout} />
               <Route path='/'  component={BurgerBuilder} />
               <Route render={()=> <h1>Page not found!</h1>} />
             </Switch>
