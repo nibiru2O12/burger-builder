@@ -91,6 +91,14 @@ class Auth extends Component {
 
     render() {
 
+        const {from} = this.props.location.state || {from:'/'}
+
+        if(this.props.isAuthenticated){
+            return(
+                <Redirect to={from} />
+            );
+        }
+
         let inputs = null;
         const {formControls} = this.state;
 
@@ -106,11 +114,7 @@ class Auth extends Component {
                                 onChange={this.handleInputChange} />
             });
         }
-
-        if(this.props.isAuthenticated){
-            inputs = <Redirect to='/' />
-        }
-
+        
         return (
             <div>
                 <form className={classes.Auth} onSubmit={(e)=>this.handleSubmit(e)}>

@@ -12,10 +12,22 @@ import { Redirect } from 'react-router-dom';
 class Orders extends Component {
 
     componentDidMount(){
-        this.props.getOrders(this.props.token);
+
+        if(this.props.token){
+            this.props.getOrders(this.props.token);
+        }
+
     }
 
     render() {
+        if(!this.props.token){
+            return (
+                <Redirect to={{
+                    pathname:'/auth',
+                    state:{from:'/orders'}
+                }} />
+            );
+        }
 
         if(this.props.isLoading){
             return <Spinner />
