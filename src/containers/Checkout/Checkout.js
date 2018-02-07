@@ -17,7 +17,6 @@ class Checkout extends Component{
 
     componentDidMount(){
 
-        /*
         const ingredients = this.props.location.state;
 
         if(ingredients){
@@ -27,9 +26,7 @@ class Checkout extends Component{
             return true;
         }
 
-        */
-
-        //this.props.history.replace('/');
+        this.props.history.replace('/');
 
     }
 

@@ -20,6 +20,7 @@ function authReducer(state=initialState,action){
                 token:null
             };
         case authAction.AUTH_SUCCESS:
+            localStorage.setItem('token',action.user.idToken);
             return {
                 ...state, authenticating : false,
                 token:action.user.idToken
@@ -29,6 +30,10 @@ function authReducer(state=initialState,action){
             return {
                 ...state, authenticating : false,
                 token:null,error:action.error
+            }
+        case authAction.AUTH_RELOG:
+            return {
+                ...initialState,token:action.token
             }
         case  authAction.AUTH_LOGOUT:
             return{

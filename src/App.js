@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 
 import './App.css';
 
+import * as authAction from './actions/authAction';
 import Layout from './components/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Orders from './containers/Orders/Orders';
@@ -18,6 +19,11 @@ const Checkout = asyncComponent(()=>{
 });
 */
 class App extends Component {
+
+  componentDidMount(){
+    this.props.relog();
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -53,4 +59,10 @@ const mapStateToProps = (state, ownProps) => {
     isAuth: state.auth.token !== null
   }
 }
-export default connect(mapStateToProps)(App);
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    relog : () => dispatch(authAction.authRelog())
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(App);

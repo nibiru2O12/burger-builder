@@ -6,6 +6,14 @@ export const AUTH_FAIL="AUTH_FAIL";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
 export const AUTH_RESET = "AUTH_RESET";
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
+export const AUTH_RELOG = "AUTH_RELOG";
+
+export function authRelog(){
+   return {
+       type: AUTH_RELOG,
+       token:localStorage.getItem('token')
+   } 
+}
 
 export function authReset(){
     return{
