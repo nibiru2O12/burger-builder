@@ -8,10 +8,14 @@ export const AUTH_RESET = "AUTH_RESET";
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
 export const AUTH_RELOG = "AUTH_RELOG";
 
+
 export function authRelog(){
+
+
    return {
        type: AUTH_RELOG,
-       token:localStorage.getItem('token')
+       token:localStorage.getItem('token'),
+       expiryDate:localStorage.getItem('expiryDate')
    } 
 }
 
@@ -41,15 +45,15 @@ function authSuccess(user){
     }
 }
 
-function autoLogout(expiryInSeconds){
-    return dispatch => {
-        setTimeout( dispatch(logout()) ,expiryInSeconds * 1000);
-    }
-}
-
 export function logout(){
     return{
         type:AUTH_LOGOUT
+    }
+}
+
+function autoLogout(seconds){
+    return dispatch => {
+        setTimeout(()=>dispatch(logout()), seconds * 1000);
     }
 }
 
@@ -64,7 +68,9 @@ export function signup(email,password){
         const endpoint = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${key}`;
         
         axios.post(endpoint,{email,password,returnSecureToken:true})
-             .then(response => dispatch(authSuccess(response.data)))
+             .then(response => {
+                dispatch(authSuccess(response.data));
+             })
              .catch(err => dispatch(authFail("Email address already exists")) );
     }
 
@@ -81,7 +87,11 @@ export function signin(email,password){
         const endpoint = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${key}`;
         
         axios.post(endpoint,{email,password,returnSecureToken:true})
-             .then(response => dispatch(authSuccess(response.data)))
+             .then(response => {
+                dispatch(authSuccess(response.data));
+                dispatch(autoLogout(response.data.expiresIn));
+                 
+                })
              .catch(err => dispatch(authFail("Incorrect Email Address / Password")) );
     }
 
